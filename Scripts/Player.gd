@@ -20,11 +20,13 @@ func take_damage(damageToTake):
 		die()
 
 func _physics_process(delta: float) -> void:
-	var is_jump_interrupted: = Input.is_action_just_released("up") and _velocity.y < 0.0
+	var is_jump_interrupted = Input.is_action_just_released("up") and _velocity.y < 0.0 #removed a colon after var name
 	var direction: = get_direction()
 	_velocity = calculate_move_velocity(_velocity, direction, speed, is_jump_interrupted)
 	var snap: Vector2 = Vector2.DOWN * 60.0 if direction.y == 0.0 else Vector2.ZERO
-	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true)
+	_velocity = move_and_slide_with_snap(
+		_velocity, snap, FLOOR_NORMAL, true
+	)
 	#Find move direction for gun
 	var move_direction = int(Input.get_action_strength("right")) - int(Input.get_action_strength("left"))
 
